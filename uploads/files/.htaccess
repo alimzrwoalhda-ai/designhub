@@ -1,0 +1,9 @@
+Options -Indexes
+
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+
+<FilesMatch "\.(php|php5|phtml|pl|py|jsp|asp|aspx|cgi|sh)$">
+    Require all denied
+</FilesMatch>

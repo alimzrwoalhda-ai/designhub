@@ -1,0 +1,27 @@
+name: Pre-deploy checks
+
+on:
+  push:
+    branches: [ main, master, 'improve/**' ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  php-lint-and-docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - name: PHP lint
+        run: |
+          set -e
+          files=$(git ls-files '*.php')
+          if [ -z "$files" ]; then echo 'No PHP files to lint'; else for f in $files; do echo "Linting $f"; php -l "$f"; done; fi
+      - name: Build Docker image (verify build)
+        if: always()
+        run: |
+          set -e
+          docker build -t designhub-check:latest .

@@ -1,0 +1,24 @@
+Deployment & Changes Summary
+
+1) Backups
+- Local zip backup created in `backups/` (timestamped).
+
+2) Security & configuration
+- `includes/db.php`: Now reads DB credentials from environment variables or `.env` file.
+- `uploads/` subfolders: Added `.htaccess` files to disable script execution and directory listing.
+- `includes/auth.php`: Improved `upload_file()` to validate MIME types, check images with `getimagesize()`, deny PHP-like MIME types, set safe file names and permissions.
+- `includes/header.php`: Added meta description, theme-color, and a `preconnect` for CDN.
+
+3) Deployment helpers
+- `Dockerfile` and `docker-compose.yml` added for local Docker-based testing.
+- `README-deploy.md` contains step-by-step deployment instructions for Render / Railway and local Docker.
+
+4) Next recommended actions
+- Create a Git repository and commit changes, preferably on a feature branch.
+- Create `.env` with DB credentials for local testing (see `README-deploy.md`).
+- Import `database.sql` via phpMyAdmin or CLI.
+- Test upload flows and user actions locally before deploying.
+
+If you want, أستطيع الآن:
+- عمل commit على فرع `improve/security-deploy` ورفع التغييرات لو رغبت.
+- أو أتابع بتحسينات إضافية (search, pagination, caching، تحسين الـ CSS).
